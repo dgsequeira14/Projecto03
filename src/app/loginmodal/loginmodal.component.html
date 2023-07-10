@@ -1,0 +1,23 @@
+<section id="modal" [formGroup]="loginForm">
+  <h2 mat-dialog-title>Controlo de Acessos</h2>
+  <li>
+    <mat-form-field class="input">
+      <mat-label>E-mail</mat-label>
+      <input matInput placeholder="exemplo@email.com" formControlName="email" required/>
+      <mat-error *ngIf="email.invalid">{{ mensagemErro("email") }}</mat-error>
+    </mat-form-field>
+  </li>
+  <li>
+    <mat-form-field class="input">
+      <mat-label>Password</mat-label>
+      <input type="password"
+        matInput formControlName="password" required/>
+      <mat-error *ngIf="password.invalid">{{ mensagemErro("password") }}</mat-error>
+    </mat-form-field>
+  </li>
+  <div id="btnWrapper">
+    <button type="button" id="btnFechar" (click)="fecharModal()">Fechar</button>
+    <button type="button" id="btnValidar" (click)="validarLogin()">Validar</button>
+  </div>
+</section>
+

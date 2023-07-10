@@ -1,0 +1,101 @@
+<!-- <h2>Carrinho de Compras</h2>
+
+<ng-container  *ngIf="listaProdutosCarrinho.length ===0">
+    <p id="mensagem">Ainda não adicionou produtos ao seu Carrinho de Compras!</p>
+</ng-container>
+<table id="wrapper">
+  <tr *ngFor="let produto of listaProdutosCarrinho">
+    <td>
+      <img src="assets/img/{{ produto.foto_principal }}" alt="{{ produto.descricao }}" />
+    </td>
+    <td>
+      <div>
+        <p id="marca">{{ produto.marca }}</p>
+        <p id="nome">{{ produto.nome }}</p>
+        <p id="preco">{{ produto.preco }} €</p>
+      </div>
+    </td>
+    <td>
+      <div id="btnRemover" (click)="removerCarrinho(produto)">Remover</div>
+    </td>
+  </tr>
+  <ng-container *ngIf="listaProdutosCarrinho.length > 0">
+  <tfoot>Preço Final: {{ precoTotal() }} €</tfoot>
+  </ng-container>
+</table>
+<section id="btnVoltar">
+<a href="javascript:void(0)" (click)="voltarPaginaAnterior()"
+    ><button type="button">Voltar à Página Anterior</button></a>
+</section> -->
+
+<h2>Carrinho de Compras</h2>
+
+<ng-container *ngIf="listaProdutosCarrinho.length === 0">
+  <p id="mensagem">Ainda não adicionou produtos ao seu Carrinho de Compras!</p>
+</ng-container>
+<ng-container *ngIf="listaProdutosCarrinho.length > 0">
+  <table
+    mat-table
+    [dataSource]="listaProdutosCarrinho"
+    class="mat-elevation-z8"
+  >
+    <ng-container matColumnDef="produto">
+      <th mat-header-cell *matHeaderCellDef>Produto</th>
+      <td mat-cell *matCellDef="let produto of listaProdutosCarrinho">
+        <a [routerLink]="['/produtos', produto.id]"><img
+          src="assets/img/{{ produto.foto_principal }}"
+          alt="{{ produto.descricao }}"
+        /></a>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="marca">
+      <th mat-header-cell *matHeaderCellDef>Marca</th>
+      <td
+        id="marca"
+        mat-cell
+        *matCellDef="let produto of listaProdutosCarrinho"
+      > <a [routerLink]="['/produtos', produto.id]">{{ produto.marca }}</a>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="nome">
+      <th mat-header-cell *matHeaderCellDef>Nome</th>
+      <td id="nome" mat-cell *matCellDef="let produto of listaProdutosCarrinho">
+         <a [routerLink]="['/produtos', produto.id]">{{ produto.nome }}</a>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="preco">
+      <th mat-header-cell *matHeaderCellDef>Preço</th>
+      <td
+        id="preco"
+        mat-cell
+        *matCellDef="let produto of listaProdutosCarrinho"
+      >
+        {{ produto.preco }} €
+      </td>
+      <td mat-footer-cell *matFooterCellDef>Total:</td>
+    </ng-container>
+
+    <ng-container matColumnDef="remover">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let produto of listaProdutosCarrinho">
+        <div id="btnRemover" (click)="removerCarrinho(produto)">Remover</div>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</ng-container>
+
+<ng-container *ngIf="listaProdutosCarrinho.length > 0">
+<section id="total">
+    <p>Total: {{ precoTotal() }} €</p>
+</section>
+</ng-container>
+
+<section id="btnVoltar">
+  <a href="javascript:void(0)" (click)="voltarPaginaAnterior()"
+    ><button type="button">Voltar à Página Anterior</button></a
+  >
+</section>
+

@@ -1,0 +1,78 @@
+h2 {
+  text-align: center;
+  font-weight: 700;
+  font-size: 3rem;
+  margin: 50px 0;
+}
+#mensagem {
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+}
+tr {
+  text-align: center;
+}
+#wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+td {
+    text-align: center;
+  width: 200px;
+  height: 300px;
+}
+img {
+  width: 150px;
+  height: 150px;
+}
+#marca {
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+#nome {
+  font-size: 1rem;
+}
+#preco {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+#btnRemover {
+  background-color: #c76407;
+  color: #fff;
+  font-weight: 700;
+  width: 150px;
+  height: 30px;
+  text-align: center;
+  padding: 5px;
+  cursor: pointer;
+    margin-left: 22px;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+#btnVoltar {
+  display: flex;
+  justify-content: center;
+}
+button {
+  text-align: center;
+  background-color: #000;
+  opacity: 0.5;
+  color: #fff;
+  margin: 20px;
+}
+th {
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+#total {
+    display: flex;
+    justify-content: flex-end;
+    margin: 30px 100px;
+    font-weight: 700;
+    font-size: 1.2rem;
+}

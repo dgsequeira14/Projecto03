@@ -1,0 +1,31 @@
+<h2>{{ produto.marca }}</h2>
+<h3>{{ produto.nome }}</h3>
+
+<section id="imgProduto">
+  <img
+    [src]="'assets/img/' + produto.foto_principal"
+    [alt]="produto.descricao"
+  />
+  <img
+    [src]="'assets/img/' + produto.foto_secundaria"
+    [alt]="produto.descricao"
+  />
+</section>
+
+<p class="infoProduto">{{ produto.tipo_de_produto }} - {{ produto.cor }}</p>
+<p class="infoProduto">{{ produto.preco }}€</p>
+<p class="infoProduto">{{ produto.descricao }}</p>
+<div id="btnCarrinhpWrapper">
+  <button id="btnCarrinho" (click)="adicionarCarrinhoCompras(produto)">
+    Adicionar ao Carrinho
+  </button>
+</div>
+
+<section>
+  <a routerLink="/homem"
+    ><button type="button">Voltar à página Homem</button></a
+  >
+  <a href="javascript:void(0)" (click)="voltarPaginaAnterior()"
+    ><button type="button">Voltar à página Anterior</button></a
+  >
+</section>

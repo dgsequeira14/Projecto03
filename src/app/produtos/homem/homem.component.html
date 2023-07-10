@@ -1,0 +1,83 @@
+
+
+<!-- <mat-grid-list cols="3" rowHeight="1:1.5">
+  <ng-container *ngFor="let produto of listaProdutos">
+    <mat-grid-tile>
+      <div id="produto">
+        <img id="produto" [src]="imgHover ? 'assets/img/' + produto.foto_secundaria : 'assets/img/' + produto.foto_principal" alt="{{ produto.descricao }}" (mouseover)="imgSecundaria()" (mouseout)="imgPrincipal()" />
+        <p id="marca">{{ produto.marca }}</p>
+        <p id="nome">{{ produto.nome }}</p>
+        <p id="preco">{{ produto.preco }} €</p>
+      </div>
+    </mat-grid-tile>
+  </ng-container>
+</mat-grid-list> -->
+
+<!-- <mat-grid-list cols="3" rowHeight="1:1.5">
+    <p>Total de resultados: {{ totalProdutos }} </p>
+    <p>Produtos {{ registoInicial+1 }} a {{ (registoInicial+numRegPag>totalProdutos) ? totalProdutos : registoInicial+numRegPag }} de um total de {{ totalProdutos }}</p>
+  <ng-container *ngFor="let produto of listaProdutos">
+    
+    <mat-grid-tile *ngIf="produtoIndex(produto) < numRegPag" >
+      <div id="produto">
+        <img [src]="isHovered(produto) ? 'assets/img/' + produto.foto_secundaria : 'assets/img/' + produto.foto_principal" alt="{{ produto.descricao }}" (mouseover)="imgSecundaria(produto)" (mouseout)="imgPrincipal()" />
+        <p id="marca">{{ produto.marca }}</p>
+        <p id="nome">{{ produto.nome }}</p>
+        <p id="preco">{{ produto.preco }} €</p>
+      </div>
+    </mat-grid-tile>
+  </ng-container>
+</mat-grid-list>
+
+<button id="mais" (click)="verMais()">VER MAIS</button> -->
+
+<!-- <section id="homemWrapper">
+<h2>Homem</h2>
+
+<mat-grid-list cols="3" rowHeight="1:1.5">
+    <p>Total de resultados: {{ totalProdutos }} </p>
+  <ng-container *ngFor="let produto of listaProdutos | slice:0:numRegPag; let i = index">
+    <mat-grid-tile>
+      <div id="produto">
+      <a [routerLink]="['/produtos', produto.id]"><img [src]="isHovered(produto) ? 'assets/img/' + produto.foto_secundaria : 'assets/img/' + produto.foto_principal" alt="{{ produto.descricao }}" (mouseover)="imgSecundaria(produto)" (mouseout)="imgPrincipal()"/></a>
+        <p id="marca">{{ produto.marca }}</p>
+        <p id="nome">{{ produto.nome }}</p>
+        <p id="preco">{{ produto.preco }} €</p>
+      </div>
+    </mat-grid-tile>
+  </ng-container>
+</mat-grid-list>
+
+<button type="button" *ngIf="numRegPag < totalProdutos" id="mais" (click)="verMais()">VER MAIS</button>
+</section>
+
+<aside>
+  <app-filtro></app-filtro>
+</aside> -->
+
+<h2>Homem</h2>
+
+<div id="container">
+    <app-filtro (filtro)="filtrarProduto($event)"></app-filtro>
+
+  <section id="produtosWrapper">
+    <p id="total">Total de resultados: {{ totalProdutos }} </p>
+    <div id="produtosGrid">
+      <div *ngFor="let produto of produtoFiltrado | slice:0:numRegPag; let i = index" id="produto">
+        <a [routerLink]="['/produtos', produto.id]">
+          <img [src]="isHovered(produto) ? 'assets/img/' + produto.foto_secundaria : 'assets/img/' + produto.foto_principal" alt="{{ produto.descricao }}" (mouseover)="imgSecundaria(produto)" (mouseout)="imgPrincipal()" />
+        </a><i class="far fa-star" [ngClass]="{'fa-solid': estrelasSelecionadas.includes(i)}" (click)="estrelaSelecionada(produto, i)"></i>
+        <p id="marca">{{ produto.marca }}</p>
+        <p id="nome">{{ produto.nome }}</p>
+        <p id="preco">{{ produto.preco }} €</p>
+        <div id="btnCarrinhpWrapper">
+          <button id="btnCarrinho" (click)="adicionarCarrinhoCompras(produto)">Adicionar ao Carrinho</button>
+        </div>
+      </div>
+    </div>
+
+    <button type="button" *ngIf="numRegPag < produtoFiltrado.length" id="mais" (click)="verMais()">VER MAIS</button>
+    <button type="button" *ngIf="numRegPag >= produtoFiltrado.length && totalProdutos === 14" id="menos" (click)="verMenos()">VER MENOS</button>
+  </section>
+</div>
+

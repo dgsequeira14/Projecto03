@@ -1,0 +1,41 @@
+* {
+    text-align: center;
+}
+h2 {
+    font-weight: 700;
+    font-size: 1.6rem;
+    margin-top: 50px;
+    text-transform: uppercase;
+}
+h3 {
+    font-size: 1.3rem;
+}
+img {
+    margin: 50px 20px;
+}
+.infoProduto {
+    font-size: 1.2rem;
+}
+a {
+    text-decoration: none;
+    color: inherit;
+}
+button:not(#btnCarrinho) {
+    text-align: center;
+    background-color: #000;
+    opacity: .5;
+    color: #fff;
+    margin: 20px;
+}
+#btnCarrinhpWrapper{
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+#btnCarrinho{
+  background-color: #c76407;
+  color: #fff;
+  text-align: center;
+  padding: 10px 20px;
+  font-weight: 700;
+}

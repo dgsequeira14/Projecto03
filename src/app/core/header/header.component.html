@@ -1,0 +1,40 @@
+<!-- <section id="header">
+  <p><a routerLink="homem">Homem</a> | Mulher</p>
+  <p>
+    <a routerLink=""><img src="../../../assets/img/logo.png" alt="Logo" /></a>
+  </p>
+  <p>Criança | Acessórios</p>
+
+  <i class="fa-solid fa-user-plus"></i>
+    <i class="fa-solid fa-arrow-right-to-bracket"></i>
+    <i class="fa-regular fa-user"></i>
+    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+    <i class="fa-solid fa-clipboard-list"></i>
+</section> -->
+
+<section id="header">
+  <button mat-button [matMenuTriggerFor]="menu">Homem</button> |
+  <button mat-button [matMenuTriggerFor]="menu">Mulher</button>
+  <a routerLink=""><img src="../../../assets/img/logo.png" alt="Logo" /></a>
+  <button mat-button [matMenuTriggerFor]="menu">Criança</button> |
+  <button mat-button [matMenuTriggerFor]="menu">Acessórios</button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>Casacos</button>
+    <button mat-menu-item>Camisas</button>
+    <button mat-menu-item>Calças</button>
+    <button mat-menu-item>Sweatshirts</button>
+    <button mat-menu-item>Polos</button>
+    <button mat-menu-item>Sapatos</button>
+    <a routerLink="homem"><button mat-menu-item>Todos</button></a>
+  </mat-menu>
+</section>
+
+  <div id="icons">
+    <i class="fa-solid fa-user-plus" title="Registo"></i>
+    <i class="fa-solid fa-arrow-right-to-bracket" title="Login" (click)="loginModal()"></i>
+    <i class="fa-regular fa-user" title="Perfil"></i>
+    <i class="fa-solid fa-arrow-right-from-bracket" title="Logout"></i>
+    <a routerLink="wishlist"><i class="fa-solid fa-clipboard-list" title="Wishlist"></i></a>
+    <a routerLink="carrinho"><i class="fa-solid fa-cart-shopping"></i></a>
+  </div>
+
