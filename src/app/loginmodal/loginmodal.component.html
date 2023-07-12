@@ -4,7 +4,7 @@
     <mat-form-field class="input">
       <mat-label>E-mail</mat-label>
       <input matInput placeholder="exemplo@email.com" formControlName="email" required/>
-      <mat-error *ngIf="email.invalid">{{ mensagemErro("email") }}</mat-error>
+      <mat-error *ngIf="!loginForm.valid && loginForm.touched">{{ mensagemErro("email") }}</mat-error>
     </mat-form-field>
   </li>
   <li>
@@ -12,7 +12,7 @@
       <mat-label>Password</mat-label>
       <input type="password"
         matInput formControlName="password" required/>
-      <mat-error *ngIf="password.invalid">{{ mensagemErro("password") }}</mat-error>
+      <mat-error *ngIf="!loginForm.valid && loginForm.touched">{{ mensagemErro("password") }}</mat-error>
     </mat-form-field>
   </li>
   <div id="btnWrapper">

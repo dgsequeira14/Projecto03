@@ -22,6 +22,9 @@ a {
     padding: 5px;
     cursor: pointer;
 }
-.fa-user, .fa-arrow-right-from-bracket {
-    display: none;
+#icons p {
+    margin: 3px 20px;
+}
+span{
+    font-weight: 700;
 }

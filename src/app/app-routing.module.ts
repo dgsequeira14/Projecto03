@@ -6,6 +6,9 @@ import { InfoprodutoComponent } from './infoproduto/infoproduto.component';
 import { NotfoundComponent } from './core/notfound/notfound.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
 import { CarrinhoComponent } from './carrinho/carrinho.component';
+import { GestaoadminComponent } from './gestaoadmin/gestaoadmin/gestaoadmin.component';
+import { GestaoprodutosComponent } from './gestaoadmin/gestaoprodutos/gestaoprodutos.component';
+import { GestaoutilizadoresComponent } from './gestaoadmin/gestaoutilizadores/gestaoutilizadores.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -13,6 +16,9 @@ const routes: Routes = [
   { path: 'produtos/:id', component: InfoprodutoComponent },
   { path: 'wishlist', component: WishlistComponent },
   { path: 'carrinho', component: CarrinhoComponent },
+  { path: 'gestaoadmin', component: GestaoadminComponent },
+  { path: 'gestaoadmin/gestaoprodutos', component: GestaoprodutosComponent },
+  { path: 'gestaoadmin/gestaoutilizadores', component: GestaoutilizadoresComponent },
   { path: '**', component: NotfoundComponent }
 ];
 

@@ -1,59 +1,5 @@
-// import { Component } from '@angular/core';
-// import {
-//   FormControl,
-//   Validators,
-//   FormsModule,
-//   ReactiveFormsModule,
-//   FormGroup,
-//   FormBuilder,
-// } from '@angular/forms';
-// import { NgIf } from '@angular/common';
-// import { MatInputModule } from '@angular/material/input';
-// import { MatFormFieldModule } from '@angular/material/form-field';
-// import { MatDialogRef } from '@angular/material/dialog';
-// import { MatIconModule } from '@angular/material/icon';
-
-// @Component({
-//   selector: 'app-loginmodal',
-//   templateUrl: './loginmodal.component.html',
-//   styleUrls: ['./loginmodal.component.css'],
-// })
-// export class LoginmodalComponent {
-//   email = new FormControl('', [Validators.required, Validators.email]);
-//   password = new FormControl('', [Validators.required]);
-//   hide: boolean = true;
-//   loginForm!: FormGroup;
-//   // password!: string;
-
-//   constructor(
-//     private modal: MatDialogRef<LoginmodalComponent>,
-//     // private formBuilder: FormBuilder
-//   ) {
-//     // this.loginForm = this.formBuilder.group({
-//     //   email: new FormControl('', [Validators.required, Validators.email]),
-//     //   password: new FormControl('', [Validators.required]),
-//     // });
-//   }
-
-//   mensagemErro() {
-//     if (this.email?.hasError('required')) {
-//       return 'O campo é de preenchimento obrigatório.';
-//     }
-//     return this.email?.hasError('email') ? 'E-mail inválido' : '';
-//   }
-
-//   fecharModal() {
-//     this.modal.close();
-//   }
-// }
-
 import { Component } from '@angular/core';
-import {
-  FormControl,
-  Validators,
-  FormBuilder,
-  FormGroup,
-} from '@angular/forms';
+import {FormControl, Validators, FormBuilder, FormGroup} from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Utilizador } from '../shared/utilizador.model';
 import { ServloginService } from '../servlogin/servlogin.service';
@@ -64,44 +10,27 @@ import { ServloginService } from '../servlogin/servlogin.service';
   styleUrls: ['./loginmodal.component.css'],
 })
 export class LoginmodalComponent {
-  email = new FormControl('', [Validators.required, Validators.email]);
-  password = new FormControl('', [Validators.required]);
-  hide = true;
+  email!: FormControl;
+  password!: FormControl;
   loginForm: FormGroup;
-  listaUtilizadores: Utilizador[] = [];
 
   constructor(
-    private modal: MatDialogRef<LoginmodalComponent>,
     private formBuilder: FormBuilder,
-    private servlogin: ServloginService
+    private servlogin: ServloginService,
+    private dialogRef: MatDialogRef<LoginmodalComponent>
   ) {
     this.loginForm = this.formBuilder.group({
-      // email: ['', [Validators.required, Validators.email]],
-      // password: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       password: [
         '',
         [
           Validators.required,
-          Validators.minLength(8),
           Validators.pattern(
-            /^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[@$!%?&])[A-Za-z\d@$!%?&]+$/
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%?&])[A-Za-z\d@$!%?&]{8}$/
           ),
         ],
       ],
-      email: ['', [Validators.required, Validators.email]],
     });
-  }
-
-  mensagemErro(mensagem: string) {
-    const controlarErro = this.loginForm.get(mensagem);
-    if (controlarErro?.hasError('required')) {
-      return 'O campo é de preenchimento obrigatório.';
-    }
-    return controlarErro?.hasError('email') ? 'E-mail inválido' : '';
-  }
-
-  fecharModal() {
-    this.modal.close();
   }
 
   validarLogin() {
@@ -109,23 +38,36 @@ export class LoginmodalComponent {
       const email = this.loginForm.get('email')?.value;
       const password = this.loginForm.get('password')?.value;
 
-      this.servlogin
-        .listarUtilizadores()
-        .subscribe((utilizadores: Utilizador[]) => {
-          const utilizadorExistente = utilizadores.find(
-            (utilizador) =>
-              utilizador.email === email && utilizador.password === password
-          );
-          if (utilizadorExistente) {
-            if (utilizadorExistente.perfil === 'admin') {
-              console.log('Admin');
-            } else if (utilizadorExistente.perfil === 'user') {
-              console.log('User');
-            } else {
-              console.log('Errado');
-            }
+      this.servlogin.validarCredenciais(email, password).subscribe(
+        (utilizadorValidado: any) => {
+          if (utilizadorValidado.isValid) {
+            localStorage.setItem('userId', utilizadorValidado.userId?.toString() ?? ''
+            );
+            localStorage.setItem('nomeUtilizador', utilizadorValidado.nomeUtilizador);
+            localStorage.setItem('perfilUtilizador', utilizadorValidado.perfilUtilizador);
+            this.servlogin.setLoggedIn(true);
+            this.dialogRef.close();
           }
-        });
+        },
+        (erro: any) => {
+          console.error('Erro:', erro);
+        }
+      );
     }
   }
+
+  mensagemErro(erro: string) {
+    const controlarErro = this.loginForm.get(erro);
+    if (controlarErro!.hasError('required')) {
+      return 'O campo é de preenchimento obrigatório.';
+    } else if (controlarErro!.hasError('email')) {
+      return 'E-mail inválido.';
+    }
+    return 'Password incorrecta.';
+  }
+
+  fecharModal() {
+    this.dialogRef.close();
+  }
 }
+

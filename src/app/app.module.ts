@@ -13,6 +13,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -27,6 +28,10 @@ import { FiltroComponent } from './filtro/filtro.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
 import { ServprodutosService } from './servprodutos/servprodutos.service';
 import { CarrinhoComponent } from './carrinho/carrinho.component';
+import { GestaoprodutosComponent } from './gestaoadmin/gestaoprodutos/gestaoprodutos.component';
+import { GestaoutilizadoresComponent } from './gestaoadmin/gestaoutilizadores/gestaoutilizadores.component';
+import { GestaoadminComponent } from './gestaoadmin/gestaoadmin/gestaoadmin.component';
+
 
 
 @NgModule({
@@ -42,6 +47,9 @@ import { CarrinhoComponent } from './carrinho/carrinho.component';
     FiltroComponent,
     WishlistComponent,
     CarrinhoComponent,
+    GestaoprodutosComponent,
+    GestaoutilizadoresComponent,
+    GestaoadminComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,6 +68,7 @@ import { CarrinhoComponent } from './carrinho/carrinho.component';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatIconModule,
+    MatSelectModule,
   ],
   providers: [ServprodutosService],
   bootstrap: [AppComponent],

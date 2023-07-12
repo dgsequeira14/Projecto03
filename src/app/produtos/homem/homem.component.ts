@@ -14,8 +14,6 @@ export class HomemComponent {
   totalProdutos: number = 0;
   registoInicial: number = 0;
   numRegPag: number = 6;
-  // numeroPaginas: number = 0;
-  // arrayNumPag: number[] = [];
   hoveredProduto: any = null;
   tipo: string = '';
   cor: string = '';
@@ -103,11 +101,6 @@ export class HomemComponent {
       this.servprodutos.adicionarWishlist(produto);
     }
   }
-
-  // adicionarCarrinhoCompras(produto: Produto) {
-
-  //   this.servprodutos.adicionarCarrinho(produto);
-  // }
 
   adicionarCarrinhoCompras(produto: Produto) {
     const index = this.servprodutos.listaProdutosWishlist.findIndex(

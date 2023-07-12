@@ -1,33 +1,3 @@
-<!-- <h2>Carrinho de Compras</h2>
-
-<ng-container  *ngIf="listaProdutosCarrinho.length ===0">
-    <p id="mensagem">Ainda não adicionou produtos ao seu Carrinho de Compras!</p>
-</ng-container>
-<table id="wrapper">
-  <tr *ngFor="let produto of listaProdutosCarrinho">
-    <td>
-      <img src="assets/img/{{ produto.foto_principal }}" alt="{{ produto.descricao }}" />
-    </td>
-    <td>
-      <div>
-        <p id="marca">{{ produto.marca }}</p>
-        <p id="nome">{{ produto.nome }}</p>
-        <p id="preco">{{ produto.preco }} €</p>
-      </div>
-    </td>
-    <td>
-      <div id="btnRemover" (click)="removerCarrinho(produto)">Remover</div>
-    </td>
-  </tr>
-  <ng-container *ngIf="listaProdutosCarrinho.length > 0">
-  <tfoot>Preço Final: {{ precoTotal() }} €</tfoot>
-  </ng-container>
-</table>
-<section id="btnVoltar">
-<a href="javascript:void(0)" (click)="voltarPaginaAnterior()"
-    ><button type="button">Voltar à Página Anterior</button></a>
-</section> -->
-
 <h2>Carrinho de Compras</h2>
 
 <ng-container *ngIf="listaProdutosCarrinho.length === 0">

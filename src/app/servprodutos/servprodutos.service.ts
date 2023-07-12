@@ -39,20 +39,6 @@ export class ServprodutosService {
     return throwError(() => error);
   }
 
-  private guardarWishlist() {
-    localStorage.setItem(
-      'wishlist',
-      JSON.stringify(this.listaProdutosWishlist)
-    );
-  }
-
-  private guardarCarrinho() {
-    localStorage.setItem(
-      'carrinho',
-      JSON.stringify(this.listaProdutosCarrinho)
-    );
-  }
-
   listarTodosProdutos(): Observable<Produto[]> {
     return this.http
       .get<Produto[]>(`${this.urlAPI}/produtos`)
@@ -77,6 +63,13 @@ export class ServprodutosService {
       .pipe(catchError(this.processaErro));
   }
 
+  private guardarWishlist() {
+    localStorage.setItem(
+      'wishlist',
+      JSON.stringify(this.listaProdutosWishlist)
+    );
+  }
+
   adicionarWishlist(produto: Produto) {
     this.listaProdutosWishlist.push(produto);
     this.guardarWishlist();
@@ -90,6 +83,13 @@ export class ServprodutosService {
       this.listaProdutosWishlist.splice(indexProduto, 1);
       this.guardarWishlist();
     }
+  }
+
+  private guardarCarrinho() {
+    localStorage.setItem(
+      'carrinho',
+      JSON.stringify(this.listaProdutosCarrinho)
+    );
   }
 
   adicionarCarrinho(produto: Produto) {
@@ -106,6 +106,10 @@ export class ServprodutosService {
       this.listaProdutosCarrinho.splice(indexProduto, 1);
     }
     this.guardarCarrinho();
-    alert("Produto removido do Carrinho de Compras!")
+    alert('Produto removido do Carrinho de Compras!');
+  }
+
+  inserirProduto(produto: Produto) : Observable<Produto> {
+    return this.http.post<Produto>(this.urlAPI, produto)
   }
 }

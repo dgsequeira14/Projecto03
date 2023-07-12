@@ -1,24 +1,10 @@
-<!-- <section id="header">
-  <p><a routerLink="homem">Homem</a> | Mulher</p>
-  <p>
-    <a routerLink=""><img src="../../../assets/img/logo.png" alt="Logo" /></a>
-  </p>
-  <p>Criança | Acessórios</p>
-
-  <i class="fa-solid fa-user-plus"></i>
-    <i class="fa-solid fa-arrow-right-to-bracket"></i>
-    <i class="fa-regular fa-user"></i>
-    <i class="fa-solid fa-arrow-right-from-bracket"></i>
-    <i class="fa-solid fa-clipboard-list"></i>
-</section> -->
-
 <section id="header">
-  <button mat-button [matMenuTriggerFor]="menu">Homem</button> |
-  <button mat-button [matMenuTriggerFor]="menu">Mulher</button>
+  <button mat-button [matMenuTriggerFor]="homem">Homem</button> |
+  <button mat-button [matMenuTriggerFor]="mulher">Mulher</button>
   <a routerLink=""><img src="../../../assets/img/logo.png" alt="Logo" /></a>
-  <button mat-button [matMenuTriggerFor]="menu">Criança</button> |
-  <button mat-button [matMenuTriggerFor]="menu">Acessórios</button>
-  <mat-menu #menu="matMenu">
+  <button mat-button [matMenuTriggerFor]="crianca">Criança</button> |
+  <button mat-button [matMenuTriggerFor]="acessorios">Acessórios</button>
+  <mat-menu #homem="matMenu">
     <button mat-menu-item>Casacos</button>
     <button mat-menu-item>Camisas</button>
     <button mat-menu-item>Calças</button>
@@ -27,14 +13,46 @@
     <button mat-menu-item>Sapatos</button>
     <a routerLink="homem"><button mat-menu-item>Todos</button></a>
   </mat-menu>
+  <mat-menu #mulher="matMenu">
+    <button mat-menu-item>Vestidos</button>
+    <button mat-menu-item>Blusões</button>
+    <button mat-menu-item>Coletes</button>
+    <button mat-menu-item>Jeans</button>
+    <button mat-menu-item>Saias</button>
+    <button mat-menu-item>Calções</button>
+    <button mat-menu-item>Lingerie</button>
+    <button mat-menu-item>Sapatos</button>
+    <button mat-menu-item>Malas</button>
+    <button mat-menu-item>Todos</button>
+  </mat-menu>
+  <mat-menu #crianca="matMenu">
+    <button mat-menu-item>Menina | 6-14 Anos</button>
+    <button mat-menu-item>Menino | 6-14 Anos</button>
+    <button mat-menu-item>Bebé Menina | 3 Meses - 5 Anos</button>
+    <button mat-menu-item>Bebé Menino | 3 Meses - 5 Anos</button>
+    <button mat-menu-item>Mini | 0-12 Meses</button>
+  </mat-menu>
+  <mat-menu #acessorios="matMenu">
+    <button mat-menu-item>Malas</button>
+    <button mat-menu-item>Pulseiras</button>
+    <button mat-menu-item>Anéis</button>
+  </mat-menu>
 </section>
 
   <div id="icons">
+    <ng-container *ngIf="!isLoggedIn">
     <i class="fa-solid fa-user-plus" title="Registo"></i>
     <i class="fa-solid fa-arrow-right-to-bracket" title="Login" (click)="loginModal()"></i>
-    <i class="fa-regular fa-user" title="Perfil"></i>
-    <i class="fa-solid fa-arrow-right-from-bracket" title="Logout"></i>
+    </ng-container>
+    <ng-container *ngIf="isLoggedIn">
+      <p>Bem-vindo(a), <span>{{ nomeUtilizador | uppercase }}</span></p>
+      <ng-container *ngIf="isAdmin">
+        <a routerLink="gestaoadmin"><i class="fa-solid fa-gear" style="color: #000000;"></i></a>
+      </ng-container>
+    <i class="fa-solid fa-user" title="Perfil"></i>
+    <i class="fa-solid fa-arrow-right-from-bracket" title="Logout" (click)="logOut()"></i>
     <a routerLink="wishlist"><i class="fa-solid fa-clipboard-list" title="Wishlist"></i></a>
-    <a routerLink="carrinho"><i class="fa-solid fa-cart-shopping"></i></a>
+    <a routerLink="carrinho"><i class="fa-solid fa-cart-shopping" title="Carrinho"></i></a>
+    </ng-container>
   </div>
 
