@@ -14,6 +14,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -31,6 +33,7 @@ import { CarrinhoComponent } from './carrinho/carrinho.component';
 import { GestaoprodutosComponent } from './gestaoadmin/gestaoprodutos/gestaoprodutos.component';
 import { GestaoutilizadoresComponent } from './gestaoadmin/gestaoutilizadores/gestaoutilizadores.component';
 import { GestaoadminComponent } from './gestaoadmin/gestaoadmin/gestaoadmin.component';
+import { EliminarmodalComponent } from './eliminarmodal/eliminarmodal.component';
 
 
 
@@ -50,6 +53,7 @@ import { GestaoadminComponent } from './gestaoadmin/gestaoadmin/gestaoadmin.comp
     GestaoprodutosComponent,
     GestaoutilizadoresComponent,
     GestaoadminComponent,
+    EliminarmodalComponent,
   ],
   imports: [
     BrowserModule,
@@ -69,6 +73,8 @@ import { GestaoadminComponent } from './gestaoadmin/gestaoadmin/gestaoadmin.comp
     MatFormFieldModule,
     MatIconModule,
     MatSelectModule,
+    MatPaginatorModule,
+    MatSlideToggleModule,
   ],
   providers: [ServprodutosService],
   bootstrap: [AppComponent],

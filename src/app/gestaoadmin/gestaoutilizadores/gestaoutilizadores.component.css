@@ -1,0 +1,39 @@
+h2 {
+  text-align: center;
+  font-weight: 700;
+  font-size: 3rem;
+  margin: 50px 0;
+}
+th {
+    font-weight: 700;
+}
+table {
+  width: 100%;
+}
+#campoPesquisa {
+    width: 20%
+}
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+#btnWrapper {
+    display: flex;
+    justify-content: flex-end;
+    margin: 20px 0; 
+}
+#btnGravar {
+    background-color: #0546f8;
+    color: #fff;
+}
+#btnVoltar {
+  display: flex;
+  justify-content: center;
+}
+button {
+    text-align: center;
+    background-color: #000;
+    opacity: .5;
+    color: #fff;
+    margin: 20px;
+}

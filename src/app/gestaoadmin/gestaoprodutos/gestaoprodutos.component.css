@@ -4,20 +4,28 @@ h2 {
   font-size: 3rem;
   margin: 50px 0;
 }
-h3 {
-  text-align: center;
-  text-decoration: underline;
-  font-weight: 700;
-  font-size: 1.5rem;
-  margin: 50px 0;
+small:not(:first-child) {
+  color: red;
 }
 #formProduto {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-mat-form-field {
-  width: 40%;
+#primeiroP {
+  margin-top: 20px;
+}
+label {
+  width: 20%;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+input:not(#checkbox),
+select,
+textarea {
+  width: 70%;
+  height: 30px;
+  margin-top: 20px;
 }
 #btnInserir {
   display: flex;
@@ -27,4 +35,55 @@ button {
   color: #0046afe8 !important;
   font-weight: 700;
   width: 175px;
+}
+#pesquisaWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30px 0 50px 0;
+}
+#labelPesquisa label {
+  margin-right: 20px;
+}
+#labelPesquisa input {
+  margin-right: 20px;
+  width: 300px;
+  height: 30px;
+}
+.btnPesquisa {
+  margin-top: 20px;
+  margin-right: 10px;
+  width: 100px;
+  height: 30px;
+  
+}
+#tituloLista {
+  text-align: center;
+  text-decoration: underline;
+  font-weight: 700;
+  font-size: 1.5rem;
+  margin: 150px 0 20px 0;
+}
+th {
+  font-weight: 700;
+  text-align: center;
+}
+td {
+  text-align: center;
+}
+img {
+  width: 150px;
+  height: 200px;
+}
+#checkbox {
+  margin-top: 20px;
+}
+#labelCheckbox {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+#btnVoltar {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
 }

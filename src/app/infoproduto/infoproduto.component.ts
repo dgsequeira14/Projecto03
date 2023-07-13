@@ -12,7 +12,7 @@ import { Produto } from '../shared/produto.model';
 export class InfoprodutoComponent implements OnInit {
   id!: number;
   produto!: Produto;
-
+  
   constructor(
     private rotaAtiva: ActivatedRoute,
     private servproduto: ServprodutosService,

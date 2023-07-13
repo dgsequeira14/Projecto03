@@ -12,7 +12,7 @@
   />
 </section>
 
-<p class="infoProduto">{{ produto.tipo_de_produto }} - {{ produto.cor }}</p>
+<p class="infoProduto">{{ produto.tipo_de_produto | uppercase }} - {{ produto.cor | uppercase}}</p>
 <p class="infoProduto">{{ produto.preco }}€</p>
 <p class="infoProduto">{{ produto.descricao }}</p>
 <div id="btnCarrinhpWrapper">

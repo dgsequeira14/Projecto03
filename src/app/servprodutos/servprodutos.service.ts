@@ -109,7 +109,15 @@ export class ServprodutosService {
     alert('Produto removido do Carrinho de Compras!');
   }
 
-  inserirProduto(produto: Produto) : Observable<Produto> {
-    return this.http.post<Produto>(this.urlAPI, produto)
+  inserirProduto(produto: Produto): Observable<Produto> {
+    return this.http.post<Produto>(`${this.urlAPI}/produtos`, produto);
+  }
+
+  eliminarProduto(id: number): Observable<Produto> {
+    return this.http.delete<any>(`${this.urlAPI}/produtos/${id}`);
+  }
+
+  pesquisarProduto(palavra: string): Observable<Produto[]> {
+    return this.http.get<Produto[]>(`${this.urlAPI}/produtos/?nome_like=${palavra}`);
   }
 }

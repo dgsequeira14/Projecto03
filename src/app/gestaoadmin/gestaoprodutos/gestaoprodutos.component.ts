@@ -1,49 +1,136 @@
-import { Component } from '@angular/core';
-import { MatSelectModule } from '@angular/material/select';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatButtonModule } from '@angular/material/button';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ServprodutosService } from 'src/app/servprodutos/servprodutos.service';
+import { Produto } from 'src/app/shared/produto.model';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { Location } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { EliminarmodalComponent } from 'src/app/eliminarmodal/eliminarmodal.component';
 
 @Component({
   selector: 'app-gestaoprodutos',
   templateUrl: './gestaoprodutos.component.html',
   styleUrls: ['./gestaoprodutos.component.css'],
 })
-export class GestaoprodutosComponent {
+export class GestaoprodutosComponent implements OnInit {
   formProduto!: FormGroup;
-  produto!: FormControl;
-  marca!: FormControl;
-  cor!: FormControl;
-  preco!: FormControl;
-  descricao!: FormControl;
+  listaProduto: Produto[] = [];
+  displayedColumns: string[] = [
+    'foto',
+    'marca',
+    'produto',
+    'tipo',
+    'cor',
+    'preco',
+    'descricao',
+    'destaque',
+    'operacao',
+  ];
+  dataSource = new MatTableDataSource<Produto>(this.listaProduto);
+  campoPesquisa: string = '';
 
-  constructor(private servprodutos: ServprodutosService) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private servprodutos: ServprodutosService,
+    private location: Location,
+    private modal: MatDialog
+  ) {}
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   ngOnInit() {
-    this.formProduto = new FormGroup({
-      produto: new FormControl('', [Validators.required]),
-      marca: new FormControl('', [Validators.required]),
-      tipo: new FormControl('', [Validators.required]),
-      cor: new FormControl('', [Validators.required]),
-      preco: new FormControl('', [Validators.required]),
-      descricao: new FormControl(''),
+    this.formProduto = this.formBuilder.group({
+      nome: ['', Validators.required],
+      marca: ['', Validators.required],
+      tipo_de_produto: ['', Validators.required],
+      cor: ['', Validators.required],
+      preco: ['', Validators.required],
+      foto_principal: ['.jpg', Validators.required],
+      descricao: [''],
+      destaque: [false],
     });
+
+    this.dataSource.paginator = this.paginator;
+
+    this.lerProdutos();
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
+
+  lerProdutos() {
+    this.servprodutos.listarTodosProdutos().subscribe(
+      (produtos) => {
+        this.listaProduto = produtos;
+        this.filtrarLista();
+      },
+      (erro) => {
+        console.error('Erro na inserção do produto:', erro);
+      }
+    );
   }
 
   inserirProduto() {
-    console.log(this.formProduto.value);
-    this.servprodutos.inserirProduto(this.formProduto.value)
-    // this.pessoa.emit(this.formProduto.value);
-    this.formProduto.reset();
+    this.servprodutos.inserirProduto(this.formProduto.value).subscribe(
+      (response) => {
+        this.formProduto.reset();
+        this.lerProdutos();
+      },
+      (erro) => {
+        console.error('Erro na inserção do produto:', erro);
+      }
+    );
+  }
+
+  eliminaProduto(id: number) {
+    this.servprodutos.eliminarProduto(id).subscribe((produto) => {
+      this.lerProdutos();
+    });
+  }
+
+  eliminarModal(id: number) {
+    this.modal.open(EliminarmodalComponent, {
+      data: { id: id },
+    });
+  }
+
+  processaPesquisa() {
+    this.servprodutos.pesquisarProduto(this.campoPesquisa).subscribe(
+      (produtos) => {
+        this.listaProduto = produtos;
+        this.filtrarLista();
+      },
+      (erro) => {
+        console.error('Erro pesquisa:', erro);
+      }
+    );
+  }
+
+  filtrarLista() {
+    const palavraPesquisada = this.campoPesquisa.toLowerCase();
+    this.dataSource.data = this.listaProduto.filter((produto) =>
+      produto.nome.toLowerCase().includes(palavraPesquisada)
+    );
+  }
+
+  limpaPesquisa() {
+    this.campoPesquisa = '';
+    this.lerProdutos();
   }
 
   mensagemErro(erro: string) {
-    const controlarErro = this.formProduto.get(erro);
-    if (controlarErro!.hasError('required')) {
-      return 'O campo é de preenchimento obrigatório.';
-    }
     return 'O campo é de preenchimento obrigatório.';
+  }
+
+  onPageChange(event: any) {
+    this.paginator.pageIndex = event.pageIndex;
+    this.paginator.pageSize = event.pageSize;
+    this.paginator.page.emit(event);
+  }
+
+  voltarPaginaAnterior() {
+    this.location.back();
   }
 }

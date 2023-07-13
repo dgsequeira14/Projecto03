@@ -1,56 +1,231 @@
 <h2>Gestão Produtos</h2>
 
-<div id="formProduto" [formGroup]="formProduto">
-  <h3>Inserir Produto</h3>
-  <mat-form-field>
-    <mat-label>Produto</mat-label>
-    <input matInput formControlName="produto" required>
-    <mat-error *ngIf="!formProduto.valid && formProduto.touched">
-      {{ mensagemErro("produto") }}
-    </mat-error>
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>Marca</mat-label>
-    <input matInput formControlName="marca" required>
-    <mat-error *ngIf="!formProduto.valid && formProduto.touched">
-      {{ mensagemErro("marca") }}
-    </mat-error>
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>Tipo</mat-label>
-    <mat-select formControlName="tipo" required>
-      <mat-option value="calças">Calças</mat-option>
-      <mat-option value="camisa">Camisa</mat-option>
-      <mat-option value="casaco">Casaco</mat-option>
-      <mat-option value="tshirt">T-Shirt</mat-option>
-      <mat-option value="sweatshirt">Sweatshirt</mat-option>
-    </mat-select>
-    <mat-error *ngIf="!formProduto.valid && formProduto.touched">
-      {{ mensagemErro("tipo") }}
-    </mat-error>
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>Cor</mat-label>
-    <input matInput formControlName="cor" required>
-    <mat-error *ngIf="!formProduto.valid && formProduto.touched">
-      {{ mensagemErro("cor") }}
-    </mat-error>
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>Preço</mat-label>
-    <input matInput formControlName="preco" required>
-    <mat-error *ngIf="!formProduto.valid && formProduto.touched">
-      {{ mensagemErro("preco") }}
-    </mat-error>
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>Descrição</mat-label>
-    <textarea matInput formControlName="descricao"></textarea>
-    <mat-error *ngIf="!formProduto.valid && formProduto.touched">
-      {{ mensagemErro("descricao") }}
-    </mat-error>
-  </mat-form-field>
+<!-- INSERIR PRODUTO  -->
+
+<div id="formProduto">
+  <form [formGroup]="formProduto" (ngSubmit)="inserirProduto()">
+    <small
+      >Os campos assinalados com * são de preenchimento obrigatório ou possuem
+      erros de preenchimento.</small
+    >
+    <p id="primeiroP">
+      <label for="produto">Produto:</label>
+      <input type="text" id="produto" formControlName="nome" required />
+      <span class="obrigatorio"> *</span>
+    </p>
+    <ng-container
+      *ngIf="
+        formProduto.get('nome')?.touched && formProduto.get('nome')?.invalid
+      "
+    >
+      <small *ngIf="formProduto.get('nome')?.hasError('required')"
+        >Campo de preenchimento obrigatório!</small
+      >
+    </ng-container>
+
+    <p>
+      <label for="marca">Marca:</label>
+      <input type="text" id="marca" formControlName="marca" required />
+      <span class="obrigatorio"> *</span>
+    </p>
+    <ng-container
+      *ngIf="
+        formProduto.get('marca')?.touched && formProduto.get('marca')?.invalid
+      "
+    >
+      <small *ngIf="formProduto.get('marca')?.hasError('required')"
+        >Campo de preenchimento obrigatório!</small
+      >
+    </ng-container>
+
+    <p>
+      <label for="tipo">Tipo:</label>
+      <select id="tipo" formControlName="tipo_de_produto" required>
+        <option value="calças">Calças</option>
+        <option value="camisa">Camisa</option>
+        <option value="casaco">Casaco</option>
+        <option value="tshirt">T-Shirt</option>
+        <option value="sweatshirt">Sweatshirt</option>
+      </select>
+      <span class="obrigatorio"> *</span>
+    </p>
+    <ng-container
+      *ngIf="
+        formProduto.get('tipo_de_produto')?.touched &&
+        formProduto.get('tipo_de_produto')?.invalid
+      "
+    >
+      <small *ngIf="formProduto.get('tipo_de_produto')?.hasError('required')"
+        >Campo de preenchimento obrigatório!</small
+      >
+    </ng-container>
+
+    <p>
+      <label for="cor">Cor:</label>
+      <input type="text" id="cor" formControlName="cor" required />
+      <span class="obrigatorio"> *</span>
+    </p>
+    <ng-container
+      *ngIf="formProduto.get('cor')?.touched && formProduto.get('cor')?.invalid"
+    >
+      <small *ngIf="formProduto.get('cor')?.hasError('required')"
+        >Campo de preenchimento obrigatório!</small
+      >
+    </ng-container>
+
+    <p>
+      <label for="preco">Preço:</label>
+      <input type="text" id="preco" formControlName="preco" required />
+      <span class="obrigatorio"> *</span>
+    </p>
+    <ng-container
+      *ngIf="
+        formProduto.get('preco')?.touched && formProduto.get('preco')?.invalid
+      "
+    >
+      <small *ngIf="formProduto.get('preco')?.hasError('required')"
+        >Campo de preenchimento obrigatório!</small
+      >
+    </ng-container>
+    <p>
+      <label for="foto_principal">Foto:</label>
+      <input
+        type="text"
+        id="foto_principal"
+        formControlName="foto_principal"
+        required
+      />
+      <span class="obrigatorio"> *</span>
+    </p>
+    <ng-container
+      *ngIf="
+        formProduto.get('foto_principal')?.touched && formProduto.get('preco')?.invalid
+      "
+    >
+      <small *ngIf="formProduto.get('foto_principal')?.hasError('required')"
+        >Campo de preenchimento obrigatório!</small
+      >
+    </ng-container>
+
+    <p>
+      <label for="descricao">Descrição:</label>
+      <textarea id="descricao" formControlName="descricao"></textarea>
+    </p>
+    <p>
+      <input id="checkbox" type="checkbox" formControlName="destaque" /><span
+        id="labelCheckbox"
+      >
+        Destaque</span
+      >
+    </p>
+    <div id="btnInserir">
+      <button mat-raised-button type="submit" [disabled]="formProduto.invalid">Inserir Produto</button>
+    </div>
+  </form>
+
+
+  <h3 id="tituloLista">Lista de Produtos</h3>
+
+
+  <!-- PESQUISA  -->
+
+  <section id="pesquisaWrapper">
+  <div id="labelPesquisa">
+  <label  for="pesquisa">Pesquisa:</label>
+  <input type="text" id="pesquisa" [(ngModel)]="campoPesquisa" autofocus></div>
+  <div id="botoes">
+    <button
+      mat-raised-button
+      class="btnPesquisa"
+      type="button"
+      (click)="processaPesquisa()"
+    >
+      Pesquisar
+    </button>
+    <button
+      mat-raised-button
+      class="btnPesquisa"
+      type="button"
+      (click)="limpaPesquisa()"
+    >
+      Limpar
+    </button>
+  </div>
+</section>
+
+
+  <!-- TABELA DE PRODUTOS  -->
+
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="foto">
+        <th mat-header-cell *matHeaderCellDef>Foto</th>
+        <td mat-cell *matCellDef="let produto">
+          <img
+            src="assets/img/{{ produto.foto_principal }}"
+            alt="{{ produto.descricao }}"
+          />
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="marca">
+        <th mat-header-cell *matHeaderCellDef>Marca</th>
+        <td mat-cell *matCellDef="let produto">{{ produto.marca }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="produto">
+        <th mat-header-cell *matHeaderCellDef>Produto</th>
+        <td mat-cell *matCellDef="let produto">{{ produto.nome }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="tipo">
+        <th mat-header-cell *matHeaderCellDef>Tipo Produto</th>
+        <td mat-cell *matCellDef="let produto">
+          {{ produto.tipo_de_produto }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="cor">
+        <th mat-header-cell *matHeaderCellDef>Cor</th>
+        <td mat-cell *matCellDef="let produto">{{ produto.cor }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="preco">
+        <th mat-header-cell *matHeaderCellDef>Preço</th>
+        <td mat-cell *matCellDef="let produto">{{ produto.preco }} €</td>
+      </ng-container>
+
+      <ng-container matColumnDef="descricao">
+        <th mat-header-cell *matHeaderCellDef>Descrição</th>
+        <td mat-cell *matCellDef="let produto">{{ produto.descricao }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="destaque">
+        <th mat-header-cell *matHeaderCellDef>Destaque</th>
+        <td mat-cell *matCellDef="let produto">
+          {{ produto.destaque ? "&#10004;" : "&#10006;" }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="operacao">
+        <th mat-header-cell *matHeaderCellDef>Operação</th>
+        <td mat-cell *matCellDef="let produto">
+          <button type="button" (click)="eliminarModal(produto.id)">
+            Eliminar
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let produto; columns: displayedColumns"></tr>
+    </table>
+
+    <mat-paginator [pageSize]="10" showFirstLastButtons></mat-paginator>
+  </div>
 </div>
-<div id="btnInserir">
-  <button mat-raised-button (click)="inserirProduto()">Inserir Produto</button>
-</div>
+
+<section id="btnVoltar">
+  <a href="javascript:void(0)" (click)="voltarPaginaAnterior()"
+    ><button type="button">Voltar à página Anterior</button></a
+  >
+</section>
