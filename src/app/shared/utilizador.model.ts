@@ -6,5 +6,6 @@ export type Utilizador = {
   morada: string,
   codigoPostal: string,
   pais: string,
-  perfil: string
+  perfil: string,
+  estado: string
 };

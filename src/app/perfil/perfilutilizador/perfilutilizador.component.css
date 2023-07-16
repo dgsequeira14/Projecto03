@@ -1,0 +1,50 @@
+h2 {
+  text-align: center;
+  font-weight: 700;
+  font-size: 3rem;
+  margin: 50px 0;
+}
+#tabelaPerfil {
+  display: flex;
+  justify-content: center;
+}
+#dadosUtilizador {
+  border-collapse: collapse;
+  border: 1px solid #0546f880;
+  margin-bottom: 50px;
+  width: 600px;
+  font-size: 1.1rem;
+}
+#dadosUtilizador tr,
+th,
+td {
+    padding: 10px 40px;
+}
+#btnVerPassword {
+  background-color: #fff;
+  margin-left: 20px;
+}
+
+#alterar {
+  display: flex;
+  justify-content: center;
+}
+#btnAlterar {
+  background-color: #0546f880;
+  color: #fff;
+}
+app-alterarperfil {
+  height: 50%;
+}
+#btnVoltar {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+}
+#voltar {
+    text-align: center;
+    background-color: #000;
+    opacity: .5;
+    color: #fff;
+    margin: 20px;
+}

@@ -12,6 +12,7 @@ export class ServloginService {
   private readonly loggedInKey = 'isLoggedIn';
   private readonly nomeUtilizadorKey = 'nomeUtilizador';
   private readonly perfilKey = 'perfilUtilizador';
+  private estadoKey = 'estadoUtilizador';
 
   constructor(private http: HttpClient) {}
 
@@ -41,10 +42,15 @@ export class ServloginService {
         );
 
         const utilizadorValidado = {
+          isValid: utilizadorExistente !== undefined,
           userId: utilizadorExistente ? utilizadorExistente.id : null,
           nomeUtilizador: utilizadorExistente ? utilizadorExistente.nome : null,
-          perfilUtilizador: utilizadorExistente ? utilizadorExistente.perfil : null,
-          isValid: utilizadorExistente !== undefined,
+          perfilUtilizador: utilizadorExistente
+            ? utilizadorExistente.perfil
+            : null,
+          estadoUtilizador: utilizadorExistente
+            ? utilizadorExistente.estado
+            : null,
         };
 
         return utilizadorValidado;
@@ -67,6 +73,31 @@ export class ServloginService {
 
   lerPerfil(): string | null {
     return localStorage.getItem(this.perfilKey);
-    
+  }
+
+  isAtivo(): boolean {
+    const isUtilizadorAtivo = localStorage.getItem(this.estadoKey);
+    if (isUtilizadorAtivo === 'ativo') {
+      return true;
+    }
+    return false;
+  }
+
+  updateUtilizador(id: number, utilizador: Utilizador): Observable<Utilizador> {
+    return this.http
+      .patch<Utilizador>(`${this.urlAPI}/utilizadores/${id}`, utilizador)
+      .pipe(catchError(this.processaErro));
+  }
+
+  inserirUtilizador(utilizador: Utilizador): Observable<Utilizador> {
+    return this.http
+      .post<Utilizador>(`${this.urlAPI}/utilizadores/`, utilizador)
+      .pipe(catchError(this.processaErro));
+  }
+
+  lerUtilizadorID(id: number): Observable<Utilizador> {
+    return this.http
+      .get<Utilizador>(`${this.urlAPI}/utilizadores/${id}`)
+      .pipe(catchError(this.processaErro));
   }
 }

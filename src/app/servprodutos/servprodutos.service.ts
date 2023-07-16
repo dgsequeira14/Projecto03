@@ -13,18 +13,24 @@ import { Produto } from '../shared/produto.model';
 })
 export class ServprodutosService {
   private urlAPI = 'http://localhost:3000';
-  listaProdutosWishlist: Produto[] = [];
-  listaProdutosCarrinho: Produto[] = [];
+  private utilizadorID: number | null = null;
+  private wishlistUtilizador: { [userId: number]: Produto[] } = {};
+  private carrinhoUtilizador: { [userId: number]: Produto[] } = {};
 
   constructor(private http: HttpClient) {
-    const listaWishlist = localStorage.getItem('wishlist');
-    if (listaWishlist) {
-      this.listaProdutosWishlist = JSON.parse(listaWishlist);
+    const utilizadorIDStorage = localStorage.getItem('userId');
+    if (utilizadorIDStorage) {
+      this.utilizadorID = parseInt(utilizadorIDStorage, 10);
     }
-
-    const listaCarrinho = localStorage.getItem('carrinho');
-    if (listaCarrinho) {
-      this.listaProdutosCarrinho = JSON.parse(listaCarrinho);
+    const wishlistUtilizadorStorage =
+      localStorage.getItem('wishlistUtilizador');
+    if (wishlistUtilizadorStorage) {
+      this.wishlistUtilizador = JSON.parse(wishlistUtilizadorStorage);
+    }
+    const carrinhoUtilizadorStorage =
+      localStorage.getItem('carrinhoUtilizador');
+    if (carrinhoUtilizadorStorage) {
+      this.carrinhoUtilizador = JSON.parse(carrinhoUtilizadorStorage);
     }
   }
 
@@ -63,50 +69,84 @@ export class ServprodutosService {
       .pipe(catchError(this.processaErro));
   }
 
+  guardarUtilizadorID() {
+    if (this.utilizadorID !== null) {
+      localStorage.setItem('userId', this.utilizadorID.toString());
+    }
+  }
+
+  lerUtilizadorID(): number {
+    const utilizadorID = localStorage.getItem('userId');
+    return utilizadorID ? parseInt(utilizadorID, 10) : -1;
+  }
+
+  lerWishlistUtilizador(): Produto[] {
+    const utilizadorID = this.lerUtilizadorID();
+    return this.wishlistUtilizador[utilizadorID] || [];
+  }
+
   private guardarWishlist() {
     localStorage.setItem(
-      'wishlist',
-      JSON.stringify(this.listaProdutosWishlist)
+      'wishlistUtilizador',
+      JSON.stringify(this.wishlistUtilizador)
     );
+  }
+
+  isProdutoWishlist(produto: Produto): boolean {
+    const userId = this.lerUtilizadorID();
+    const wishlist = this.lerWishlistUtilizador();
+    return wishlist.some((p) => p.id === produto.id);
   }
 
   adicionarWishlist(produto: Produto) {
-    this.listaProdutosWishlist.push(produto);
+    const utilizadorID = this.lerUtilizadorID();
+    if (!this.wishlistUtilizador[utilizadorID]) {
+      this.wishlistUtilizador[utilizadorID] = [];
+    }
+    this.wishlistUtilizador[utilizadorID].push(produto);
     this.guardarWishlist();
   }
 
-  removerWishlist(produto: any) {
-    const indexProduto = this.listaProdutosWishlist.findIndex(
-      (produto) => produto.id === produto.id
-    );
+  removerWishlist(produto: Produto) {
+    const utilizadorID = this.lerUtilizadorID();
+    const wishlist = this.wishlistUtilizador[utilizadorID] || [];
+    const indexProduto = wishlist.findIndex((p) => p.id === produto.id);
     if (indexProduto !== -1) {
-      this.listaProdutosWishlist.splice(indexProduto, 1);
+      wishlist.splice(indexProduto, 1);
       this.guardarWishlist();
     }
   }
 
   private guardarCarrinho() {
     localStorage.setItem(
-      'carrinho',
-      JSON.stringify(this.listaProdutosCarrinho)
+      'carrinhoUtilizador',
+      JSON.stringify(this.carrinhoUtilizador)
     );
   }
 
+  lerCarrinhoUtilizador(): Produto[] {
+    const utilizadorID = this.lerUtilizadorID();
+    return this.carrinhoUtilizador[utilizadorID] || [];
+  }
+
   adicionarCarrinho(produto: Produto) {
-    this.listaProdutosCarrinho.push(produto);
-    alert('Produto adicionado ao Carrinho de Compras!');
+    const utilizadorID = this.lerUtilizadorID();
+    if (!this.carrinhoUtilizador[utilizadorID]) {
+      this.carrinhoUtilizador[utilizadorID] = [];
+    }
+    this.carrinhoUtilizador[utilizadorID].push(produto);
+    alert('Produto adicionado ao carrinho!');
     this.guardarCarrinho();
   }
 
   removerCarrinho(produto: Produto) {
-    const indexProduto = this.listaProdutosCarrinho.findIndex(
-      (produto) => produto.id === produto.id
-    );
+    const utilizadorID = this.lerUtilizadorID();
+    const carrinho = this.carrinhoUtilizador[utilizadorID] || [];
+    const indexProduto = carrinho.findIndex((p) => p.id === produto.id);
     if (indexProduto !== -1) {
-      this.listaProdutosCarrinho.splice(indexProduto, 1);
+      carrinho.splice(indexProduto, 1);
+      this.guardarCarrinho();
     }
-    this.guardarCarrinho();
-    alert('Produto removido do Carrinho de Compras!');
   }
 
   inserirProduto(produto: Produto): Observable<Produto> {
@@ -118,6 +158,8 @@ export class ServprodutosService {
   }
 
   pesquisarProduto(palavra: string): Observable<Produto[]> {
-    return this.http.get<Produto[]>(`${this.urlAPI}/produtos/?nome_like=${palavra}`);
+    return this.http.get<Produto[]>(
+      `${this.urlAPI}/produtos/?nome_like=${palavra}`
+    );
   }
 }

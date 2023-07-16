@@ -1,25 +1,26 @@
 <h2>Wishlist</h2>
 
-<ng-container  *ngIf="listaProdutosWishlist.length ===0">
+<ng-container  *ngIf="listaProdutosWishlist.length === 0">
     <p id="mensagem">Ainda não adicionou produtos à sua wishlist!</p>
 </ng-container>
-<table id="wrapper">
-  <tr *ngFor="let produto of listaProdutosWishlist">
-    <td>
-      <img src="assets/img/{{ produto.foto_principal }}" alt="{{ produto.descricao }}" />
-    </td>
-    <td>
-      <div>
+<mat-grid-list [cols]="coluna" [rowHeight]="alturaLinha">
+  <ng-container *ngFor="let produto of listaProdutosWishlist">
+  <mat-grid-tile class="container">
+    <a [routerLink]="['/produtos', produto.id]"><img src="assets/img/{{ produto.foto_principal }}" alt="{{ produto.descricao }}" /></a>
+  </mat-grid-tile>
+  <mat-grid-tile class="container">
+    <a [routerLink]="['/produtos', produto.id]"><div id="infoWrapper">
         <p id="marca">{{ produto.marca }}</p>
         <p id="nome">{{ produto.nome }}</p>
         <p id="preco">{{ produto.preco }} €</p>
-      </div>
-    </td>
-    <td>
-      <div id="btnRemover" (click)="removerWishlist(produto)">Remover</div>
-    </td>
-  </tr>
-</table>
+      </div></a>
+    </mat-grid-tile>
+  <mat-grid-tile class="container">
+    <div id="btnRemover" (click)="removerWishlist(produto)">Remover</div>
+  </mat-grid-tile>
+</ng-container>
+</mat-grid-list>
+
 <section id="btnVoltar">
 <a href="javascript:void(0)" (click)="voltarPaginaAnterior()"
     ><button type="button">Voltar à Página Anterior</button></a>

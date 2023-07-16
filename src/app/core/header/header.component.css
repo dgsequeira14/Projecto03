@@ -28,3 +28,7 @@ a {
 span{
     font-weight: 700;
 }
+#mensagemInativo {
+    text-align: right;
+    font-size: .8rem;
+}

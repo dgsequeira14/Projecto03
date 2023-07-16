@@ -1,7 +1,7 @@
 <ngb-carousel [interval]="3000">
 	<ng-template ngbSlide *ngFor="let imagem of imagens">
 		<div id="carousel-wrapper">
-			<img src="assets/img/{{ imagem.nome }}" [alt]="imagem.legenda" />
+			<img id="imgCarousel" src="assets/img/{{ imagem.nome }}" [alt]="imagem.legenda" />
       <div id="carousel-caption">SALDOS</div>
     </div>
 	</ng-template>
@@ -9,7 +9,7 @@
 
 <h2>DESTAQUES</h2>
 
- <mat-grid-list cols="4" rowHeight="1:1.5">
+ <mat-grid-list [cols]="coluna" [rowHeight]="alturaLinha">
   <ng-container *ngFor="let produto of listaProdutos">
     <mat-grid-tile *ngIf="produto.destaque">
       <a [routerLink]="['/produtos', produto.id]" routerLinkActive="activa" [routerLinkActiveOptions]="{ exact: true }"><img id="produto" src="assets/img/{{ produto.foto_principal }}" alt="{{ produto.descricao }}" /></a>

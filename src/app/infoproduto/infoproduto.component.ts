@@ -12,7 +12,7 @@ import { Produto } from '../shared/produto.model';
 export class InfoprodutoComponent implements OnInit {
   id!: number;
   produto!: Produto;
-  
+
   constructor(
     private rotaAtiva: ActivatedRoute,
     private servproduto: ServprodutosService,
@@ -29,15 +29,12 @@ export class InfoprodutoComponent implements OnInit {
   }
 
   adicionarCarrinhoCompras(produto: Produto) {
-    const index = this.servproduto.listaProdutosWishlist.findIndex(
-      (item) => item.id === produto.id
-    );
-    const isProdutoWishlist = index !== -1;
+    const isProdutoWishlist = this.servproduto.isProdutoWishlist(produto);
 
     this.servproduto.adicionarCarrinho(produto);
 
     if (isProdutoWishlist) {
-      this.servproduto.listaProdutosWishlist.splice(index, 1);
+      this.servproduto.removerWishlist(produto);
       alert('Produto removido da Wishlist!');
     }
   }

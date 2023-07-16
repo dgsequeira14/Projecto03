@@ -39,20 +39,33 @@
   </mat-menu>
 </section>
 
+<ng-container *ngIf="isLoggedIn && !isAtivo">
+  <p id="mensagemInativo">Por favor peça ao Administrador para ativar a sua conta!</p>
+</ng-container>
   <div id="icons">
-    <ng-container *ngIf="!isLoggedIn">
-    <i class="fa-solid fa-user-plus" title="Registo"></i>
+  <ng-container *ngIf="!isLoggedIn">
+    <a routerLink="registo"><i class="fa-solid fa-user-plus" title="Registo"></i></a>
     <i class="fa-solid fa-arrow-right-to-bracket" title="Login" (click)="loginModal()"></i>
+  </ng-container>
+  <ng-container *ngIf="isLoggedIn">
+    <p>Bem-vindo(a), <span>{{ nomeUtilizador | uppercase }}</span></p>
+    <ng-container *ngIf="isAdmin">
+      <a routerLink="gestaoadmin"><i class="fa-solid fa-gear" style="color: #000000;"></i></a>
+      <a routerLink="perfil"><i class="fa-solid fa-user" title="Perfil"></i></a>
+      <i class="fa-solid fa-arrow-right-from-bracket" title="Logout" (click)="logOut()"></i>
     </ng-container>
-    <ng-container *ngIf="isLoggedIn">
-      <p>Bem-vindo(a), <span>{{ nomeUtilizador | uppercase }}</span></p>
-      <ng-container *ngIf="isAdmin">
-        <a routerLink="gestaoadmin"><i class="fa-solid fa-gear" style="color: #000000;"></i></a>
-      </ng-container>
-    <i class="fa-solid fa-user" title="Perfil"></i>
-    <i class="fa-solid fa-arrow-right-from-bracket" title="Logout" (click)="logOut()"></i>
-    <a routerLink="wishlist"><i class="fa-solid fa-clipboard-list" title="Wishlist"></i></a>
-    <a routerLink="carrinho"><i class="fa-solid fa-cart-shopping" title="Carrinho"></i></a>
+    <ng-container *ngIf="!isAdmin && !isAtivo">
+      <a routerLink="perfil"><i class="fa-solid fa-user" title="Perfil"></i></a>
+      <i class="fa-solid fa-arrow-right-from-bracket" title="Logout" (click)="logOut()"></i>
     </ng-container>
-  </div>
+    <ng-container *ngIf="!isAdmin && isAtivo">
+      <a routerLink="perfil"><i class="fa-solid fa-user" title="Perfil"></i></a>
+      <i class="fa-solid fa-arrow-right-from-bracket" title="Logout" (click)="logOut()"></i>
+      <a routerLink="wishlist"><i class="fa-solid fa-clipboard-list" title="Wishlist"></i></a>
+      <a routerLink="carrinho"><i class="fa-solid fa-cart-shopping" title="Carrinho"></i></a>
+    </ng-container>
+  </ng-container>
+</div>
+
+
 

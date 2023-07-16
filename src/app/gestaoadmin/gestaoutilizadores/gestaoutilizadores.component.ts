@@ -22,7 +22,10 @@ export class GestaoutilizadoresComponent {
   ];
   dataSource = new MatTableDataSource<Utilizador>(this.listaUtilizadores);
 
-  constructor(private servutilizadores: ServloginService, private location: Location) {}
+  constructor(
+    private servutilizadores: ServloginService,
+    private location: Location
+  ) {}
 
   ngOnInit() {
     this.mostrarUtilizadores();
@@ -43,6 +46,24 @@ export class GestaoutilizadoresComponent {
         console.error('Erro na leitura de utilizadores:', erro);
       }
     );
+  }
+
+  /**
+   * Tentei neste método fazer a atualização de apenas o utilizador pretendido, mas não consegui chegar a uma solução por isso quando gravo alterações todos os utilizadores são atualizados independentemente se sofream atualizações ou não, o que não é de todo correcto.
+   */
+  gravarAlteracoes() {
+    for (let utilizador of this.listaUtilizadores) {
+      this.servutilizadores
+        .updateUtilizador(utilizador.id, utilizador)
+        .subscribe(
+          (utilizador) => {
+            alert('Utilizador atualizado');
+          },
+          (erro) => {
+            console.error('Erro ao atualizar utilizador:', erro);
+          }
+        );
+    }
   }
 
   voltarPaginaAnterior() {

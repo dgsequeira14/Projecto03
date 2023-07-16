@@ -29,3 +29,15 @@ p {
     font-weight: 700;
     font-size: 1.2rem;
 }
+#btnVoltar {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+}
+#voltar {
+    text-align: center;
+    background-color: #000;
+    opacity: .5;
+    color: #fff;
+    margin: 20px;
+}

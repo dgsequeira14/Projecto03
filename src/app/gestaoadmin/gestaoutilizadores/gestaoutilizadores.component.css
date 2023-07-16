@@ -26,6 +26,14 @@ table {
     background-color: #0546f8;
     color: #fff;
 }
+#registar {
+  display: flex;
+  justify-content: flex-start;
+}
+#btnRegistar {
+    background-color: #0546f8;
+    color: #fff;
+}
 #btnVoltar {
   display: flex;
   justify-content: center;

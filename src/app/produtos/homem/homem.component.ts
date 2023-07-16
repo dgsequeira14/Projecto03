@@ -80,7 +80,8 @@ export class HomemComponent {
     const { tipo, cor } = filtro;
 
     this.produtoFiltrado = this.listaProdutos.filter((produto: any) => {
-      const tipoSelecionado = tipo.length === 0 || tipo.includes(produto.tipo_de_produto);
+      const tipoSelecionado =
+        tipo.length === 0 || tipo.includes(produto.tipo_de_produto);
       const corSelecionada = cor.length === 0 || cor.includes(produto.cor);
 
       return tipoSelecionado && corSelecionada;
@@ -103,15 +104,12 @@ export class HomemComponent {
   }
 
   adicionarCarrinhoCompras(produto: Produto) {
-    const index = this.servprodutos.listaProdutosWishlist.findIndex(
-      (item) => item.id === produto.id
-    );
-    const isProdutoWishlist = index !== -1;
+    const isProdutoWishlist = this.servprodutos.isProdutoWishlist(produto);
 
     this.servprodutos.adicionarCarrinho(produto);
 
     if (isProdutoWishlist) {
-      this.servprodutos.listaProdutosWishlist.splice(index, 1);
+      this.servprodutos.removerWishlist(produto);
       alert('Produto removido da Wishlist!');
     }
   }

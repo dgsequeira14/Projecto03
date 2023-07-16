@@ -63,15 +63,29 @@ img {
   height: 400px;
   position: relative;
 }
-#btnCarrinhpWrapper{
+#btnCarrinhpWrapper {
   display: flex;
   justify-content: center;
 }
-#btnCarrinho{
+#btnCarrinho {
   background-color: #c76407;
   color: #fff;
   text-align: center;
   padding: 10px;
   font-weight: 700;
   width: 60%;
+}
+@media screen and (max-width: 800px) {
+  #produtosGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+  }
+}
+@media screen and (max-width: 480px) {
+  #produtosGrid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 20px;
+  }
 }

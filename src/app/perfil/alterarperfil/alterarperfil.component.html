@@ -1,0 +1,125 @@
+<h3>Alterar Perfil</h3>
+
+<div id="formUtilizador">
+    <form [formGroup]="formUtilizador" (ngSubmit)="atualizarUtilizador()">
+    
+    <small
+      >Os campos assinalados com * são de preenchimento obrigatório ou possuem
+      erros de preenchimento.</small>
+      <p id="erro" *ngIf="erroEmail">E-mail já existente!</p>
+    <p id="primeiroP">
+      <label for="nome">Nome:</label>
+      <input type="text" id="nome" formControlName="nome" required />
+      <span class="obrigatorio"> *</span>
+    </p>
+    <ng-container
+      *ngIf="
+        formUtilizador.get('nome')?.touched &&
+        formUtilizador.get('nome')?.invalid
+      "
+    >
+      <small *ngIf="formUtilizador.get('nome')?.hasError('required')"
+        >Campo de preenchimento obrigatório!</small
+      >
+    </ng-container>
+
+    <p>
+      <label for="email">E-mail:</label>
+      <input type="text" id="email" formControlName="email" required />
+      <span class="obrigatorio"> *</span>
+    </p>
+    <ng-container
+      *ngIf="
+        formUtilizador.get('email')?.touched &&
+        formUtilizador.get('email')?.invalid
+      "
+    >
+      <small *ngIf="formUtilizador.get('email')?.hasError('required')"
+        >Campo de preenchimento obrigatório!</small
+      >
+      
+    </ng-container>
+
+    <p>
+      <label for="password">Password:</label>
+      <input
+        type="password"
+        id="password"
+        formControlName="password"
+        required
+      />
+      <span class="obrigatorio"> *</span>
+    </p>
+    <ng-container
+      *ngIf="
+        formUtilizador.get('password')?.touched &&
+        formUtilizador.get('password')?.invalid
+      "
+    >
+      <small *ngIf="formUtilizador.get('password')?.hasError('required')"
+        >Campo de preenchimento obrigatório!</small
+      >
+    </ng-container>
+
+    <p>
+      <label for="morada">Morada:</label>
+      <input type="text" id="morada" formControlName="morada" required />
+      <span class="obrigatorio"> *</span>
+    </p>
+    <ng-container
+      *ngIf="
+        formUtilizador.get('morada')?.touched &&
+        formUtilizador.get('morada')?.invalid
+      "
+    >
+      <small *ngIf="formUtilizador.get('morada')?.hasError('required')"
+        >Campo de preenchimento obrigatório!</small
+      >
+    </ng-container>
+
+    <p>
+      <label for="codigoPostal">Código-Postal:</label>
+      <input
+        type="text"
+        id="codigoPostal"
+        formControlName="codigoPostal"
+        required
+      />
+      <span class="obrigatorio"> *</span>
+    </p>
+    <ng-container
+      *ngIf="
+        formUtilizador.get('codigoPostal')?.touched &&
+        formUtilizador.get('codigoPostal')?.invalid
+      "
+    >
+      <small *ngIf="formUtilizador.get('codigoPostal')?.hasError('required')"
+        >Campo de preenchimento obrigatório!</small
+      >
+    </ng-container>
+    <p>
+      <label for="pais">País:</label>
+      <input type="text" id="pais" formControlName="pais" required />
+      <span class="obrigatorio"> *</span>
+    </p>
+    <ng-container
+      *ngIf="
+        formUtilizador.get('pais')?.touched &&
+        formUtilizador.get('pais')?.invalid
+      "
+    >
+      <small *ngIf="formUtilizador.get('pais')?.hasError('required')"
+        >Campo de preenchimento obrigatório!</small
+      >
+    </ng-container>
+
+    <div id="btnGravar">
+      <button
+        mat-raised-button
+        type="submit"
+        [disabled]="formUtilizador.invalid"
+      >
+        Gravar
+      </button>
+    </div>
+  </form>

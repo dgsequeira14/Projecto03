@@ -1,5 +1,10 @@
 <section id="modal" [formGroup]="loginForm">
   <h2 mat-dialog-title>Controlo de Acessos</h2>
+  <div id="erroWrapper">
+    <p *ngIf="erroUtilizadorInexistente">
+    {{ erroUtilizadorInexistente }}</p>
+  </div>
+  
   <li>
     <mat-form-field class="input">
       <mat-label>E-mail</mat-label>

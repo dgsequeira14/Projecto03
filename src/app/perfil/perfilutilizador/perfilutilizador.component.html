@@ -1,0 +1,50 @@
+<h2>Perfil Utilizador</h2>
+
+<section id="tabelaPerfil">
+<table id="dadosUtilizador">
+    <tr>
+        <th>Nome: </th>
+        <td> {{ utilizador.nome }}</td>
+    </tr>
+    <tr>
+        <th>E-mail: </th>
+        <td> {{ utilizador.email }}</td>
+    </tr>
+    <tr>
+        <th>Password: </th>
+        <td><ng-container *ngIf="password; else passwordEscondida">{{ utilizador.password }}</ng-container>
+      <ng-template #passwordEscondida>{{ '*'.repeat(utilizador.password.length || 0) }}</ng-template>
+      <button id="btnVerPassword" (click)="mostrarPassword()">
+        <i class="fas" [ngClass]="{'fa-eye-slash': password, 'fa-eye': !password}"></i>
+    </button>
+    </td>
+    </tr>
+    <tr>
+        <th>Morada: </th>
+        <td> {{ utilizador.morada }}</td>
+    </tr>
+    <tr>
+        <th>Código-Postal: </th>
+        <td> {{ utilizador.codigoPostal }}</td>
+    </tr>
+    <tr>
+        <th>País: </th>
+        <td> {{ utilizador.pais }}</td>
+    </tr>
+</table>
+</section>
+<div id="alterar">
+  <button id="btnAlterar" mat-raised-button type="submit" (click)="abrirFormAlterar(utilizador)">
+    Alterar Informações
+  </button>
+</div>
+
+<div *ngIf="mostraFormAlterar">
+<app-alterarperfil  [utilizador]="utilizador" (formSubmetido)="esconderFormAlterar()"></app-alterarperfil>
+</div>
+
+<section id="btnVoltar">
+  <a href="javascript:void(0)" (click)="voltarPaginaAnterior()"
+    ><button id="voltar" type="button">Voltar à Página Anterior</button></a
+  >
+</section>

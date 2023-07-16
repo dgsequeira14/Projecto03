@@ -9,21 +9,33 @@ import { CarrinhoComponent } from './carrinho/carrinho.component';
 import { GestaoadminComponent } from './gestaoadmin/gestaoadmin/gestaoadmin.component';
 import { GestaoprodutosComponent } from './gestaoadmin/gestaoprodutos/gestaoprodutos.component';
 import { GestaoutilizadoresComponent } from './gestaoadmin/gestaoutilizadores/gestaoutilizadores.component';
+import { RegistoutilizadorComponent } from './registoutilizador/registoutilizador.component';
+import { PerfilutilizadorComponent } from './perfil/perfilutilizador/perfilutilizador.component';
+import { AlterarperfilComponent } from './perfil/alterarperfil/alterarperfil.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'home',
+    pathMatch: 'full',
+    redirectTo: '/',
+  },
   { path: 'homem', component: HomemComponent },
   { path: 'produtos/:id', component: InfoprodutoComponent },
   { path: 'wishlist', component: WishlistComponent },
   { path: 'carrinho', component: CarrinhoComponent },
   { path: 'gestaoadmin', component: GestaoadminComponent },
   { path: 'gestaoadmin/gestaoprodutos', component: GestaoprodutosComponent },
-  { path: 'gestaoadmin/gestaoutilizadores', component: GestaoutilizadoresComponent },
-  { path: '**', component: NotfoundComponent }
+  {
+    path: 'gestaoadmin/gestaoutilizadores',
+    component: GestaoutilizadoresComponent,
+  },
+  { path: 'registo', component: RegistoutilizadorComponent },
+  { path: 'perfil', component: PerfilutilizadorComponent, children: [{ path: 'alterarinformacoes', component: AlterarperfilComponent } ]},
+  { path: '**', component: NotfoundComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

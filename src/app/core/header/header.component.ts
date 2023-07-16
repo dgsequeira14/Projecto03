@@ -38,6 +38,10 @@ export class HeaderComponent {
     return true;
   }
 
+  get isAtivo(): boolean {
+    return this.servlogin.isAtivo();
+  }
+
   logOut() {
     localStorage.clear();
     this.router.navigate(['']);

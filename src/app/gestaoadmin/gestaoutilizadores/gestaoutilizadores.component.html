@@ -1,4 +1,9 @@
 <h2>Gestão Utilizadores</h2>
+<div id="registar">
+  <a routerLink="/registo"><button id="btnRegistar" mat-raised-button type="submit">
+    Registar Novo Utilizador
+  </button></a>
+</div>
 
 <mat-form-field id="campoPesquisa">
   <mat-label>Pesquisar</mat-label>
@@ -68,7 +73,7 @@
 </table>
 
 <div id="btnWrapper">
-  <button id="btnGravar" mat-raised-button type="submit">
+  <button id="btnGravar" mat-raised-button type="submit" (click)="gravarAlteracoes()">
     Gravar Alterações
   </button>
 </div>

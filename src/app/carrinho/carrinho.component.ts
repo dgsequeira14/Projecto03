@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { ServprodutosService } from '../servprodutos/servprodutos.service';
 import { Location } from '@angular/common';
 import { Produto } from '../shared/produto.model';
-import { MatTableModule } from '@angular/material/table';
 
 @Component({
   selector: 'app-carrinho',
@@ -19,13 +18,13 @@ export class CarrinhoComponent {
   ) {}
 
   ngOnInit() {
-    this.listaProdutosCarrinho = this.servprodutos.listaProdutosCarrinho;
+    this.listaProdutosCarrinho = this.servprodutos.lerCarrinhoUtilizador();
   }
 
   removerCarrinho(produto: Produto) {
     this.servprodutos.removerCarrinho(produto);
-    window.location.reload(); // Tive que implementar o method reload() porque não conseguia mostrar o carrinho de compras atualizado depois de remover um artigo sem fazer o refresh da página
-    
+    this.listaProdutosCarrinho = this.servprodutos.lerCarrinhoUtilizador();
+    window.location.reload();
   }
 
   precoTotal() {

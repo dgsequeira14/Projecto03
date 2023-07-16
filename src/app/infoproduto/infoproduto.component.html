@@ -1,3 +1,4 @@
+<ng-container *ngIf="(produto | keyvalue)?.length">
 <h2>{{ produto.marca }}</h2>
 <h3>{{ produto.nome }}</h3>
 
@@ -20,6 +21,7 @@
     Adicionar ao Carrinho
   </button>
 </div>
+</ng-container>
 
 <section>
   <a routerLink="/homem"

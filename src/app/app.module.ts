@@ -16,6 +16,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { LayoutModule } from '@angular/cdk/layout';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -34,8 +35,10 @@ import { GestaoprodutosComponent } from './gestaoadmin/gestaoprodutos/gestaoprod
 import { GestaoutilizadoresComponent } from './gestaoadmin/gestaoutilizadores/gestaoutilizadores.component';
 import { GestaoadminComponent } from './gestaoadmin/gestaoadmin/gestaoadmin.component';
 import { EliminarmodalComponent } from './eliminarmodal/eliminarmodal.component';
-
-
+import { RegistoutilizadorComponent } from './registoutilizador/registoutilizador.component';
+import { ConfirmarmodalComponent } from './shared/confirmarmodal/confirmarmodal.component';
+import { PerfilutilizadorComponent } from './perfil/perfilutilizador/perfilutilizador.component';
+import { AlterarperfilComponent } from './perfil/alterarperfil/alterarperfil.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +57,10 @@ import { EliminarmodalComponent } from './eliminarmodal/eliminarmodal.component'
     GestaoutilizadoresComponent,
     GestaoadminComponent,
     EliminarmodalComponent,
+    RegistoutilizadorComponent,
+    ConfirmarmodalComponent,
+    PerfilutilizadorComponent,
+    AlterarperfilComponent,
   ],
   imports: [
     BrowserModule,
@@ -75,6 +82,7 @@ import { EliminarmodalComponent } from './eliminarmodal/eliminarmodal.component'
     MatSelectModule,
     MatPaginatorModule,
     MatSlideToggleModule,
+    LayoutModule,
   ],
   providers: [ServprodutosService],
   bootstrap: [AppComponent],
